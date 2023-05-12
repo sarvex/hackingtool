@@ -14,9 +14,8 @@ def get_toc(tools, indentation = ""):
     md = ""
     for tool in tools:
         if isinstance(tool, HackingToolsCollection):
-            md += (indentation + "- [{}](#{})\n".format(
-                tool.TITLE, sanitize_anchor(tool.TITLE)))
-            md += get_toc(tool.TOOLS, indentation = indentation + '    ')
+            md += f"{indentation}- [{tool.TITLE}](#{sanitize_anchor(tool.TITLE)})\n"
+            md += get_toc(tool.TOOLS, indentation=f'{indentation}    ')
     return md
 
 
@@ -24,13 +23,13 @@ def get_tools_toc(tools, indentation = "##"):
     md = ""
     for tool in tools:
         if isinstance(tool, HackingToolsCollection):
-            md += (indentation + "# {}\n".format(tool.TITLE))
-            md += get_tools_toc(tool.TOOLS, indentation = indentation + '#')
+            md += f"{indentation}# {tool.TITLE}\n"
+            md += get_tools_toc(tool.TOOLS, indentation=f'{indentation}#')
         elif isinstance(tool, HackingTool):
             if tool.PROJECT_URL:
-                md += ("- [{}]({})\n".format(tool.TITLE, tool.PROJECT_URL))
+                md += f"- [{tool.TITLE}]({tool.PROJECT_URL})\n"
             else:
-                md += ("- {}\n".format(tool.TITLE))
+                md += f"- {tool.TITLE}\n"
     return md
 
 
